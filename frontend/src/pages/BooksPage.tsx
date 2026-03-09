@@ -35,8 +35,9 @@ export default function BooksPage() {
                 <td className="border p-2">{book.title}</td>
                 <td className="border p-2">{book.author}</td>
                 <td className="border p-2">{book.isbn}</td>
-                <td className="border p-2">{book.status}</td>
-              </tr>
+                <td className="border p-2">
+  {book.status === 'AVAILABLE' ? 'Verfügbar' : 'Ausgeliehen'}
+</td>              </tr>
             ))}
           </tbody>
         </table>

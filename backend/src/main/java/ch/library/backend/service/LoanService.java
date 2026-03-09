@@ -27,8 +27,8 @@ public class LoanService {
         return loanRepository.findByUserId(userId);
     }
 
-    public List<Loan> getActiveLoansForUser(String userId) {
-        return loanRepository.findByUserIdAndStatus(userId, "ACTIVE");
+    public List<Loan> getActiveLoansForUser(String userName) {
+        return loanRepository.findByUserNameAndStatus(userName, "ACTIVE");
     }
 
     public Loan createLoan(Long bookId, String userId, String userName) {

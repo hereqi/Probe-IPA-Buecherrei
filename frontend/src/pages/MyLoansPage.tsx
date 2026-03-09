@@ -4,20 +4,26 @@ import { loanApi, setAuthToken } from '../services/api';
 import type { Loan } from '../types';
 
 export default function MyLoansPage() {
-  const { keycloak } = useKeycloak();
+  const { keycloak, initialized } = useKeycloak();
   const [loans, setLoans] = useState<Loan[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
   useEffect(() => {
-    if (keycloak.token) {
+    if (initialized && keycloak.authenticated && keycloak.token) {
       setAuthToken(keycloak.token);
       loanApi.getMyLoans()
         .then(setLoans)
+        .catch(() => setError('Fehler beim Laden'))
         .finally(() => setLoading(false));
+    } else if (initialized && !keycloak.authenticated) {
+      setLoading(false);
+      setError('Bitte anmelden');
     }
-  }, [keycloak.token]);
+  }, [initialized, keycloak.authenticated, keycloak.token]);
 
   if (loading) return <p>Laden...</p>;
+  if (error) return <p className="text-red-500">{error}</p>;
 
   return (
     <div>

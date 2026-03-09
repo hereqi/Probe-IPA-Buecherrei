@@ -25,23 +25,23 @@ public class LoanController {
     }
 
     @GetMapping("/my")
-    public List<Loan> getMyLoans(@AuthenticationPrincipal Jwt jwt) {
-        String userId = jwt.getSubject();
-        return loanService.getActiveLoansForUser(userId);
-    }
+public List<Loan> getMyLoans(@AuthenticationPrincipal Jwt jwt) {
+    String userName = jwt.getClaimAsString("preferred_username");
+    return loanService.getActiveLoansForUser(userName);
+}
 
     @PostMapping
     public ResponseEntity<Loan> createLoan(
             @RequestParam Long bookId,
             @RequestParam String userId,
-            @RequestParam String userName) {
+            @RequestParam String userName,
+            @AuthenticationPrincipal Jwt jwt) {
         Loan loan = loanService.createLoan(bookId, userId, userName);
         if (loan == null) {
             return ResponseEntity.badRequest().build();
         }
         return ResponseEntity.ok(loan);
     }
-
     @PutMapping("/{id}/return")
     public ResponseEntity<Loan> returnBook(@PathVariable Long id) {
         Loan loan = loanService.returnBook(id);
