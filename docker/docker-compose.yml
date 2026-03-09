@@ -1,0 +1,28 @@
+services:
+  mariadb:
+    image: mariadb:11.2
+    container_name: library-mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: library
+      MYSQL_USER: library
+      MYSQL_PASSWORD: library123
+    ports:
+      - "3306:3306"
+    volumes:
+      - mariadb_data:/var/lib/mysql
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:23.0
+    container_name: library-keycloak
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    command: start-dev
+    ports:
+      - "8180:8080"
+    depends_on:
+      - mariadb
+
+volumes:
+  mariadb_data:
