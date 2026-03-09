@@ -1,8 +1,9 @@
 % ============================================================================
-% Probe-IPA Dokumentation – Bibliotheksverwaltung
-% Full-Stack Web-Applikation
+% Probe-IPA Dokumentation – Lion Hereqi
+% Full-Stack Bibliotheksverwaltung
+% Datum: 09.03.2026
 % ============================================================================
-\documentclass[a4paper,12pt]{report}
+\documentclass[a4paper,12pt,twoside]{report}
 
 % --- Pakete ---
 \usepackage[utf8]{inputenc}
@@ -17,51 +18,100 @@
 \usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage{longtable}
+\usepackage{array}
 \usepackage{fancyhdr}
+\usepackage{amssymb}
+\usepackage{caption}
 \usepackage{float}
 \usepackage{parskip}
+\usepackage{textcomp}
+\usepackage{pdflscape}
 \usepackage{tikz}
-\usepackage{amssymb}
 
-% --- Farben ---
-\definecolor{primary}{HTML}{1E3A8A}
-\definecolor{secondary}{HTML}{3B82F6}
+% --- Farben (ti&m Design System) ---
+\definecolor{timprimary}{HTML}{00918F}
+\definecolor{timsecondary}{HTML}{002650}
+\definecolor{timtext}{HTML}{202020}
+\definecolor{timerror}{HTML}{DC2918}
 \definecolor{codebg}{HTML}{F5F5F5}
 \definecolor{codeframe}{HTML}{E0E0E0}
 
-% --- Hyperref ---
+% --- Hyperref Einstellungen ---
 \hypersetup{
     colorlinks=true,
-    linkcolor=primary,
-    urlcolor=secondary,
+    linkcolor=timsecondary,
+    urlcolor=timprimary,
+    citecolor=timprimary,
+    pdfauthor={Lion Hereqi},
+    pdftitle={Probe-IPA 2026 – Full-Stack Bibliotheksverwaltung},
 }
 
 % --- Code-Listings ---
+\lstdefinelanguage{java}{
+    keywords={package, import, public, private, protected, class, interface, extends, implements, static, final, void, return, if, else, for, while, new, this, super, true, false, null, try, catch, throw, throws},
+    keywordstyle=\color{timsecondary}\bfseries,
+    ndkeywords={String, Long, List, Book, Loan, Entity, Table, Id, Column, Service, Repository, Controller, GetMapping, PostMapping, PutMapping, DeleteMapping, RequestBody, PathVariable, ResponseEntity, Autowired},
+    ndkeywordstyle=\color{timprimary}\bfseries,
+    sensitive=true,
+    comment=[l]{//},
+    morecomment=[s]{/*}{*/},
+    commentstyle=\color{gray}\itshape,
+    string=[b]",
+    stringstyle=\color{timerror},
+}
+
+\lstdefinelanguage{tsx}{
+    keywords={function, const, let, var, return, if, else, for, while, import, export, from, async, await, try, catch, throw, new, typeof, instanceof, default, interface, type, extends, implements, class, this, super, true, false, null, undefined},
+    keywordstyle=\color{timsecondary}\bfseries,
+    ndkeywords={useState, useEffect, useKeycloak, React, Book, Loan},
+    ndkeywordstyle=\color{timprimary}\bfseries,
+    sensitive=true,
+    comment=[l]{//},
+    morecomment=[s]{/*}{*/},
+    commentstyle=\color{gray}\itshape,
+    string=[b]",
+    morestring=[b]',
+    morestring=[b]`,
+    stringstyle=\color{timerror},
+}
+
 \lstset{
     basicstyle=\ttfamily\footnotesize,
     backgroundcolor=\color{codebg},
     frame=single,
     rulecolor=\color{codeframe},
     breaklines=true,
+    breakatwhitespace=false,
     showstringspaces=false,
     tabsize=2,
     numbers=left,
     numberstyle=\tiny\color{gray},
+    numbersep=8pt,
     xleftmargin=15pt,
     framexleftmargin=15pt,
+    aboveskip=10pt,
+    belowskip=10pt,
+    captionpos=b,
+    literate={ä}{{\"a}}1 {ö}{{\"o}}1 {ü}{{\"u}}1 {Ä}{{\"A}}1 {Ö}{{\"O}}1 {Ü}{{\"U}}1 {ß}{{\ss}}1,
 }
 
 % --- Kopf-/Fusszeile ---
 \pagestyle{fancy}
 \fancyhf{}
-\fancyhead[L]{\small Probe-IPA 2026}
-\fancyhead[R]{\small Bibliotheksverwaltung}
+\fancyhead[L]{\small Lion Hereqi -- Probe-IPA 2026}
+\fancyhead[R]{\small Full-Stack Bibliotheksverwaltung}
 \fancyfoot[C]{\thepage}
 \renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
 
-% --- Checkmark ---
+% --- Checkmark / Crossmark ---
 \newcommand{\cmark}{\textcolor{green!60!black}{$\checkmark$}}
 \newcommand{\xmark}{\textcolor{red}{$\times$}}
+
+% --- Tabellentypen ---
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\arraybackslash}p{#1}}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
 
 % ============================================================================
 \begin{document}
@@ -69,29 +119,27 @@
 % --- Titelseite ---
 \begin{titlepage}
     \centering
-    \vspace*{2cm}
-    
-    {\Large\bfseries Probe-IPA}\\[0.5cm]
-    {\large Informatiker/in EFZ Applikationsentwicklung}\\[2cm]
-    
+    \vspace*{1cm}
+
+    {\Large\bfseries ti\&m AG}\\[0.3cm]
+    {\small Zürich \textbar\ Bern \textbar\ Basel \textbar\ Singapur \textbar\ Frankfurt}\\[0.2cm]
+    {\small Buckhauserstrasse 24, 8048 Zürich}\\[0.2cm]
+    {\small T +41 44 497 75 00 \quad F +41 44 497 75 01}\\[0.2cm]
+    {\small \href{mailto:info@ti8m.com}{info@ti8m.com} \quad \href{https://www.ti8m.com}{www.ti8m.com}}\\[2cm]
+
     \rule{\textwidth}{1pt}\\[1.5cm]
-    
-    {\Huge\bfseries\color{primary} Bibliotheksverwaltung}\\[0.5cm]
-    {\LARGE Full-Stack Web-Applikation}\\[1.5cm]
-    
-    \rule{\textwidth}{1pt}\\[2cm]
-    
-    {\large
-    \begin{tabular}{ll}
-        \textbf{Kandidat/in:} & [Dein Name] \\
-        \textbf{Betrieb:} & [Dein Betrieb] \\
-        \textbf{Zeitraum:} & [Datum - Datum] \\
-        \textbf{Fachvorgesetzte/r:} & [Name] \\
-    \end{tabular}
-    }\\[2cm]
-    
+
+    {\Huge\bfseries\color{timsecondary} Lion Hereqi}\\[0.5cm]
+    {\LARGE\bfseries Probe-IPA 05.03. -- 09.03.2026}\\[1.5cm]
+
+    {\huge\bfseries\color{timprimary} Full-Stack\\Bibliotheksverwaltung}\\[2cm]
+
+    \rule{\textwidth}{1pt}\\[1cm]
+
+    {\large Autor: Lion Hereqi}\\[0.3cm]
+    {\large Zuletzt geändert am: 09.03.2026}\\
+
     \vfill
-    {\large Zuletzt geändert: \today}
 \end{titlepage}
 
 % --- Inhaltsverzeichnis ---
@@ -105,13 +153,15 @@
 
 % ----------------------------------------------------------------------------
 \section{Vorwort}
-Diese Probe-IPA dokumentiert die Entwicklung einer webbasierten Bibliotheksverwaltung. Das Ziel ist die Digitalisierung der Buchverwaltung, die aktuell noch mit einem papierbasierten System erfolgt.
+Das Ziel dieser Probe-IPA ist es, meine Fachkenntnisse als Applikationsentwickler unter Beweis zu stellen. Im Rahmen dieser Arbeit wurde eine webbasierte Full-Stack-Applikation zur Verwaltung von Büchern in einer Bibliothek entwickelt.
 
 Das Dokument gliedert sich in zwei Teile:
 \begin{itemize}
-    \item \textbf{Teil 1:} Umfeld und Ablauf (Organisation, Planung)
-    \item \textbf{Teil 2:} Projekt und Umsetzung (Technische Dokumentation)
+    \item \textbf{Teil 1:} Umfeld und Ablauf -- Organisatorische Aspekte der Arbeit
+    \item \textbf{Teil 2:} Projekt und Umsetzung -- Technische Dokumentation
 \end{itemize}
+
+\newpage
 
 % ----------------------------------------------------------------------------
 \section{Aufgabenstellung}
@@ -120,11 +170,20 @@ Das Dokument gliedert sich in zwei Teile:
 Full-Stack Bibliotheksverwaltung
 
 \subsection{Ausgangslage}
-In einer Bibliothek werden Bücher aktuell nicht digital, sondern mit einem alten Akten-System auf Papier verwaltet. Dadurch entsteht ein deutlicher Mehraufwand für die Angestellten.
+In einer Bibliothek werden Bücher aktuell nicht digital, sondern noch mit einem alten Akten-Order-System auf Papier verwaltet. Dadurch entsteht ein deutlicher Mehraufwand für die Angestellten der Bibliothek.
+
+Ziel dieser Probearbeit ist die Entwicklung eines webbasierten Full-Stack-Tools zur strukturierten Erfassung und Verwaltung von Büchern.
 
 \subsection{Detaillierte Aufgabenstellung}
-Entwicklung eines webbasierten Full-Stack-Tools zur strukturierten Erfassung und Verwaltung von Büchern mit folgenden Kernfunktionen:
+Das System wird als moderne Webanwendung umgesetzt mit folgenden Technologien:
+\begin{itemize}
+    \item Frontend: React + Vite + TypeScript + Shadcn UI
+    \item Backend: Java + Spring Boot
+    \item Datenbank: MariaDB
+    \item Authentifizierung \& Rollenverwaltung: Keycloak via OIDC
+\end{itemize}
 
+Die Kernfunktionen, die diese Probe-IPA lösen soll:
 \begin{itemize}
     \item Erfassen von Büchern in der Bibliothek
     \item Zuordnen von Büchern als Verliehen/Verfügbar
@@ -134,122 +193,203 @@ Entwicklung eines webbasierten Full-Stack-Tools zur strukturierten Erfassung und
 
 \subsection{Rollen- und Sicherheitskonzept}
 Das System unterscheidet zwischen zwei Rollen:
-
 \begin{enumerate}
     \item \textbf{Mitarbeiter (STAFF):} Kann neue Bücher anlegen, Bücher an Kunden verleihen und als zurückgegeben markieren.
     \item \textbf{Kunde (CUSTOMER):} Kann sich die Bücher ansehen, die ihm aktuell zugewiesen sind.
 \end{enumerate}
 
-\subsection{Technologie-Stack}
+\subsection{Abgrenzung}
 \begin{itemize}
-    \item Frontend: React + Vite + TypeScript + Shadcn UI
-    \item Backend: Java + Spring Boot
-    \item Datenbank: MariaDB
-    \item Authentifizierung: Keycloak (OIDC)
-    \item Containerisierung: Docker
+    \item Die Applikation ist eine Webanwendung, mobile Unterstützung ist nicht erforderlich.
+    \item Benutzerverwaltung erfolgt über Keycloak, nicht in der Applikation selbst.
+    \item Es werden keine externen Schnittstellen zu anderen Systemen implementiert.
 \end{itemize}
+
+\newpage
 
 % ----------------------------------------------------------------------------
 \section{Mittel und Methoden}
 
 \subsection{Hardware}
+
 \begin{table}[H]
 \centering
 \caption{Verwendete Hardware}
+\label{tab:hardware}
 \begin{tabularx}{\textwidth}{l X}
 \toprule
 \textbf{Eigenschaft} & \textbf{Beschreibung} \\
 \midrule
-Computer & [Dein Computer/Laptop] \\
-Betriebssystem & macOS / Windows \\
-Prozessor & [CPU] \\
-Arbeitsspeicher & [RAM] GB \\
+Marke & Apple \\
+Modell & MacBook Pro 16", Nov. 2024 \\
+Chip & Apple M4 Max \\
+Arbeitsspeicher & 64 GB \\
+Betriebssystem & macOS Sequoia 15.7.2 \\
 \bottomrule
 \end{tabularx}
 \end{table}
 
+\subsection{Arbeitsplatz}
+Die gesamte Durchführung der Probe-IPA erfolgt vor Ort bei der ti\&m AG in Zürich.
+
 \subsection{Software}
+
 \begin{table}[H]
 \centering
 \caption{Verwendete Software}
+\label{tab:software}
 \begin{tabularx}{\textwidth}{l X}
 \toprule
 \textbf{Tool} & \textbf{Beschreibung} \\
 \midrule
-Cursor IDE & Entwicklungsumgebung \\
-Docker Desktop & Container-Verwaltung \\
-Git & Versionierung \\
-GitHub & Remote Repository \\
-Chrome/Firefox & Browser zum Testen \\
+Cursor IDE & Entwicklungsumgebung mit KI-Unterstützung \\
+Docker Desktop & Container-Verwaltung für MariaDB und Keycloak \\
+Git & Versionskontrolle \\
+GitHub & Remote Repository (\href{https://github.com/hereqi/Probe-IPA-Buecherrei}{github.com/hereqi/Probe-IPA-Buecherrei}) \\
+Chrome & Browser zum Testen \\
+Postman & API-Testing \\
 \bottomrule
 \end{tabularx}
 \end{table}
 
 \subsection{Technologien}
+
+\begin{table}[H]
+\centering
+\caption{Verwendete Technologien}
+\begin{tabularx}{\textwidth}{l l X}
+\toprule
+\textbf{Bereich} & \textbf{Technologie} & \textbf{Version/Beschreibung} \\
+\midrule
+Frontend & React & 18.x mit TypeScript \\
+Frontend & Vite & Build-Tool \\
+Frontend & Tailwind CSS & Utility-First CSS Framework \\
+Frontend & Shadcn UI & Komponentenbibliothek \\
+Backend & Java & 17 \\
+Backend & Spring Boot & 3.5.x \\
+Backend & Spring Security & OAuth2 Resource Server \\
+Backend & Spring Data JPA & Hibernate ORM \\
+Datenbank & MariaDB & 11.x \\
+Auth & Keycloak & 23.x (OIDC) \\
+Infra & Docker Compose & Container-Orchestrierung \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\newpage
+
+% ----------------------------------------------------------------------------
+\section{Neue Lerninhalte}
+
+Im Rahmen dieser Probe-IPA wurden folgende neue Kenntnisse erworben:
 \begin{itemize}
-    \item React 18 mit TypeScript
-    \item Vite als Build-Tool
-    \item Tailwind CSS + Shadcn UI
-    \item Java 17 mit Spring Boot 3.x
-    \item Spring Data JPA / Hibernate
-    \item Spring Security mit OAuth2
-    \item MariaDB 11.x
-    \item Keycloak 23.x
-    \item Docker Compose
+    \item Integration von Keycloak mit Spring Boot (OAuth2 Resource Server)
+    \item Rollenbasierte Zugriffskontrolle mit JWT-Token
+    \item Shadcn UI Komponentenbibliothek
+    \item Docker Compose für Multi-Container-Umgebungen
+    \item Full-Stack Architektur mit React und Spring Boot
 \end{itemize}
+
+% ----------------------------------------------------------------------------
+\section{Vorkenntnisse}
+
+\subsection{Technologien}
+\begin{itemize}
+    \item Entwicklung mit React und TypeScript
+    \item Entwicklung mit Java und Spring Boot
+    \item Styling mit Tailwind CSS
+    \item Versionierung mit Git
+\end{itemize}
+
+\subsection{Software und Tools}
+\begin{itemize}
+    \item Cursor IDE / VS Code
+    \item Git und GitHub
+    \item Docker
+\end{itemize}
+
+\newpage
 
 % ----------------------------------------------------------------------------
 \section{Projektaufbauorganisation}
 
 \subsection{Organigramm}
+
 \begin{figure}[H]
 \centering
 \begin{tikzpicture}[
     node distance=1.5cm and 2cm,
-    every node/.style={draw, rounded corners, minimum width=3.5cm, minimum height=1cm, align=center, font=\small}
+    every node/.style={draw, rounded corners, minimum width=4cm, minimum height=1cm, align=center, font=\small}
 ]
-    \node (kandidat) {Kandidat\\{[Dein Name]}};
-    \node (vf) [above=1.5cm of kandidat] {Fachvorgesetzte/r\\{[Name]}};
-    \node (he) [above right=1cm and 2cm of kandidat] {Hauptexperte/in\\{[Name]}};
-    \node (ne) [below right=1cm and 2cm of kandidat] {Nebenexperte/in\\{[Name]}};
+    \node (kandidat) {Kandidat\\Lion Hereqi};
+    \node (vf) [above=1.5cm of kandidat] {Fachvorgesetzter\\Georg Steinmetz};
+    \node (he) [above right=1cm and 2.5cm of kandidat] {Hauptexperte/in\\[PLATZHALTER]};
+    \node (ne) [below right=1cm and 2.5cm of kandidat] {Nebenexperte/in\\[PLATZHALTER]};
     \draw[->] (vf) -- (kandidat);
     \draw[->] (he) -- (kandidat);
     \draw[->] (ne) -- (kandidat);
 \end{tikzpicture}
 \caption{Organigramm}
+\label{fig:organigramm}
 \end{figure}
+
+\subsection{Kontaktdaten}
+
+\textbf{Betrieb (Durchführungsort)}\\
+ti\&m AG\\
+Buckhauserstrasse 24\\
+8048 Zürich
+
+\textbf{Kandidat}\\
+Lion Hereqi\\
+[PLATZHALTER: Kontaktdaten]
+
+\textbf{Fachvorgesetzter}\\
+Georg Steinmetz\\
+ti\&m AG
+
+\newpage
 
 % ----------------------------------------------------------------------------
 \section{Versionierung}
-Der Code wird mit Git versioniert und auf GitHub gespeichert.
 
-Repository: \url{https://github.com/[username]/Probe-IPA-Buecherrei}
+\subsection{Code-Versionierung}
+Der gesamte Quellcode wird mit Git versioniert und auf GitHub gespeichert:
+
+\begin{center}
+\url{https://github.com/hereqi/Probe-IPA-Buecherrei}
+\end{center}
+
+\subsection{Dokumentations-Versionierung}
+Die Dokumentation wird ebenfalls im Git-Repository unter \texttt{/docs} versioniert.
+
+\newpage
 
 % ----------------------------------------------------------------------------
 \section{Zeitplan}
 
-\begin{table}[H]
-\centering
-\caption{Zeitplan}
-\begin{tabularx}{\textwidth}{c l X c}
-\toprule
-\textbf{Tag} & \textbf{Phase} & \textbf{Tätigkeiten} & \textbf{Stunden} \\
-\midrule
-1 & Planung & Aufgabe analysieren, Use Cases, ER-Diagramm & 8h \\
-2 & Infrastruktur & Docker, Datenbank, Keycloak einrichten & 8h \\
-3 & Backend & Entities, Repositories, Services & 8h \\
-4 & Backend & Controller, Security, API testen & 8h \\
-5 & Frontend & React Setup, Routing, Auth-Integration & 8h \\
-6 & Frontend & Seiten implementieren, Shadcn UI & 8h \\
-7 & Integration & Frontend-Backend verbinden, Tests & 8h \\
-8 & Testing & Testfälle durchführen, Bugfixes & 8h \\
-9 & Dokumentation & LaTeX Dokumentation schreiben & 8h \\
-10 & Abschluss & Review, letzte Korrekturen, Abgabe & 8h \\
-\midrule
-& & \textbf{Total} & \textbf{80h} \\
-\bottomrule
-\end{tabularx}
-\end{table}
+% Querformat-Seite für Zeitplan
+\begin{landscape}
+\thispagestyle{empty}
+
+\vspace*{1cm}
+{\Large\bfseries Zeitplan -- Probe-IPA Bibliotheksverwaltung}\\[0.5cm]
+{\normalsize Zeitraum: 05.03.2026 -- 09.03.2026 (5 Tage)}\\[1cm]
+
+\begin{center}
+\textit{[PLATZHALTER: Zeitplan als Gantt-Diagramm oder Tabelle einfügen]}\\[2cm]
+
+\fbox{\parbox{0.9\linewidth}{\centering\vspace{8cm}
+\textbf{PLATZHALTER}\\[0.5cm]
+Hier wird der detaillierte Zeitplan eingefügt.\\
+Format: Gantt-Diagramm oder tabellarische Übersicht\\
+mit Tätigkeiten, Soll- und Ist-Zeiten.
+\vspace{8cm}}}
+\end{center}
+
+\end{landscape}
+
+\newpage
 
 % ============================================================================
 % TEIL 2 – PROJEKT UND UMSETZUNG
@@ -260,158 +400,220 @@ Repository: \url{https://github.com/[username]/Probe-IPA-Buecherrei}
 \section{Anforderungsanalyse}
 
 \subsection{Funktionale Anforderungen}
+
 \begin{table}[H]
 \centering
 \caption{Funktionale Anforderungen}
-\begin{tabularx}{\textwidth}{c l X c}
+\label{tab:fa}
+\begin{tabularx}{\textwidth}{c c X c}
 \toprule
-\textbf{ID} & \textbf{Priorität} & \textbf{Beschreibung} & \textbf{Status} \\
+\textbf{ID} & \textbf{Prio} & \textbf{Beschreibung} & \textbf{Status} \\
 \midrule
 FA-01 & Muss & Bücher erfassen (Titel, Autor, ISBN) & \cmark \\
-FA-02 & Muss & Bücher ausleihen (Kunde zuordnen) & \cmark \\
-FA-03 & Muss & Bücher zurückgeben & \cmark \\
-FA-04 & Muss & Kunde sieht eigene Ausleihen & \cmark \\
-FA-05 & Muss & Rollenbasierte Zugriffskontrolle & \cmark \\
-FA-06 & Soll & Bücherliste anzeigen & \cmark \\
+FA-02 & Muss & Bücher an Kunden ausleihen & \cmark \\
+FA-03 & Muss & Ausgeliehene Bücher zurückgeben & \cmark \\
+FA-04 & Muss & Kunde sieht eigene aktive Ausleihen & \cmark \\
+FA-05 & Muss & Rollenbasierte Zugriffskontrolle (STAFF/CUSTOMER) & \cmark \\
+FA-06 & Soll & Übersicht aller Bücher mit Status & \cmark \\
+FA-07 & Soll & Übersicht aller aktiven Ausleihen (Mitarbeiter) & \cmark \\
 \bottomrule
 \end{tabularx}
 \end{table}
 
 \subsection{Nicht-funktionale Anforderungen}
+
 \begin{table}[H]
 \centering
 \caption{Nicht-funktionale Anforderungen}
+\label{tab:nfa}
 \begin{tabularx}{\textwidth}{c l X c}
 \toprule
 \textbf{ID} & \textbf{Kategorie} & \textbf{Beschreibung} & \textbf{Status} \\
 \midrule
-NFA-01 & Sicherheit & Authentifizierung via Keycloak & \cmark \\
-NFA-02 & Sicherheit & JWT-Token Validierung & \cmark \\
-NFA-03 & Usability & Konsistente Benutzeroberfläche & \cmark \\
-NFA-04 & Wartbarkeit & Dokumentierter Code & \cmark \\
+NFA-01 & Sicherheit & Authentifizierung via Keycloak (OIDC) & \cmark \\
+NFA-02 & Sicherheit & JWT-Token Validierung im Backend & \cmark \\
+NFA-03 & Sicherheit & Rollenbasierte API-Absicherung & \cmark \\
+NFA-04 & Usability & Konsistente Benutzeroberfläche & \cmark \\
+NFA-05 & Wartbarkeit & Strukturierter, dokumentierter Code & \cmark \\
+NFA-06 & Betrieb & Reproduzierbare Entwicklungsumgebung (Docker) & \cmark \\
 \bottomrule
 \end{tabularx}
 \end{table}
+
+\newpage
 
 % ----------------------------------------------------------------------------
 \section{Use Cases}
 
 \subsection{Use Case Diagramm}
-% Platzhalter für Screenshot
+
 \begin{figure}[H]
 \centering
-\fbox{\parbox{0.8\textwidth}{\centering\vspace{3cm}\textit{[Screenshot: Use Case Diagramm einfügen]}\vspace{3cm}}}
+\fbox{\parbox{0.85\textwidth}{\centering\vspace{4cm}
+\textbf{PLATZHALTER}\\[0.5cm]
+Use Case Diagramm hier einfügen.\\
+Datei: \texttt{screenshots/use-case-diagram.png}
+\vspace{4cm}}}
 \caption{Use Case Diagramm}
 \label{fig:usecase}
 \end{figure}
 
+\newpage
+
 \subsection{Use Case Beschreibungen}
 
-\textbf{UC-01: Anmelden}
+\subsubsection{UC-01: Anmelden}
 \begin{table}[H]
 \begin{tabularx}{\textwidth}{l X}
 \toprule
-Akteur & Mitarbeiter, Kunde \\
-Vorbedingung & Benutzer hat Keycloak-Account \\
-Ablauf & 1. Benutzer klickt "Anmelden" \newline 2. Weiterleitung zu Keycloak \newline 3. Eingabe von Benutzername/Passwort \newline 4. Weiterleitung zurück zur App \\
-Nachbedingung & Benutzer ist eingeloggt \\
+\textbf{Use Case} & UC-01: Anmelden \\
+\midrule
+Akteure & Mitarbeiter, Kunde \\
+Vorbedingung & Benutzer hat einen Keycloak-Account \\
+Ablauf & 1. Benutzer klickt auf ``Anmelden''\\
+& 2. Weiterleitung zur Keycloak Login-Seite\\
+& 3. Eingabe von Benutzername und Passwort\\
+& 4. Weiterleitung zurück zur Applikation \\
+Nachbedingung & Benutzer ist eingeloggt, JWT-Token erhalten \\
 \bottomrule
 \end{tabularx}
 \end{table}
 
-\textbf{UC-02: Buch erfassen}
+\subsubsection{UC-02: Buch erfassen}
 \begin{table}[H]
 \begin{tabularx}{\textwidth}{l X}
 \toprule
-Akteur & Mitarbeiter \\
-Vorbedingung & Mitarbeiter ist angemeldet \\
-Ablauf & 1. Mitarbeiter öffnet "Mitarbeiter"-Bereich \newline 2. Gibt Titel, Autor, ISBN ein \newline 3. Klickt "Hinzufügen" \\
-Nachbedingung & Buch ist in der Datenbank gespeichert \\
+\textbf{Use Case} & UC-02: Buch erfassen \\
+\midrule
+Akteure & Mitarbeiter \\
+Vorbedingung & Mitarbeiter ist angemeldet (Rolle: STAFF) \\
+Ablauf & 1. Mitarbeiter öffnet den Mitarbeiter-Bereich\\
+& 2. Gibt Titel, Autor und optional ISBN ein\\
+& 3. Klickt auf ``Hinzufügen'' \\
+Nachbedingung & Buch ist in der Datenbank gespeichert mit Status ``AVAILABLE'' \\
 \bottomrule
 \end{tabularx}
 \end{table}
 
-\textbf{UC-03: Buch ausleihen}
+\subsubsection{UC-03: Buch ausleihen}
 \begin{table}[H]
 \begin{tabularx}{\textwidth}{l X}
 \toprule
-Akteur & Mitarbeiter \\
-Vorbedingung & Buch ist verfügbar \\
-Ablauf & 1. Mitarbeiter wählt Buch aus Dropdown \newline 2. Gibt Kundennamen ein \newline 3. Klickt "Ausleihen" \\
-Nachbedingung & Buch ist als "ausgeliehen" markiert \\
+\textbf{Use Case} & UC-03: Buch ausleihen \\
+\midrule
+Akteure & Mitarbeiter \\
+Vorbedingung & Buch ist verfügbar (Status: AVAILABLE) \\
+Ablauf & 1. Mitarbeiter wählt ein verfügbares Buch aus dem Dropdown\\
+& 2. Gibt den Kundennamen ein\\
+& 3. Klickt auf ``Ausleihen'' \\
+Nachbedingung & Buch-Status ist ``BORROWED'', Ausleihe ist erstellt \\
 \bottomrule
 \end{tabularx}
 \end{table}
 
-\textbf{UC-04: Eigene Ausleihen anzeigen}
+\subsubsection{UC-04: Buch zurückgeben}
 \begin{table}[H]
 \begin{tabularx}{\textwidth}{l X}
 \toprule
-Akteur & Kunde \\
-Vorbedingung & Kunde ist angemeldet \\
-Ablauf & 1. Kunde öffnet "Meine Ausleihen" \newline 2. Liste der aktiven Ausleihen wird angezeigt \\
+\textbf{Use Case} & UC-04: Buch zurückgeben \\
+\midrule
+Akteure & Mitarbeiter \\
+Vorbedingung & Ausleihe existiert mit Status ``ACTIVE'' \\
+Ablauf & 1. Mitarbeiter sieht Liste der aktiven Ausleihen\\
+& 2. Klickt bei einer Ausleihe auf ``Zurückgeben'' \\
+Nachbedingung & Ausleihe-Status ist ``RETURNED'', Buch-Status ist ``AVAILABLE'' \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsubsection{UC-05: Eigene Ausleihen anzeigen}
+\begin{table}[H]
+\begin{tabularx}{\textwidth}{l X}
+\toprule
+\textbf{Use Case} & UC-05: Eigene Ausleihen anzeigen \\
+\midrule
+Akteure & Kunde \\
+Vorbedingung & Kunde ist angemeldet (Rolle: CUSTOMER) \\
+Ablauf & 1. Kunde öffnet ``Meine Ausleihen''\\
+& 2. Liste der aktiven Ausleihen wird angezeigt \\
 Nachbedingung & -- \\
 \bottomrule
 \end{tabularx}
 \end{table}
 
+\newpage
+
 % ----------------------------------------------------------------------------
 \section{Datenmodell}
 
 \subsection{ER-Diagramm}
+
 \begin{figure}[H]
 \centering
-\fbox{\parbox{0.8\textwidth}{\centering\vspace{3cm}\textit{[Screenshot: ER-Diagramm einfügen]}\vspace{3cm}}}
+\fbox{\parbox{0.85\textwidth}{\centering\vspace{4cm}
+\textbf{PLATZHALTER}\\[0.5cm]
+ER-Diagramm hier einfügen.\\
+Datei: \texttt{screenshots/er-diagram.png}
+\vspace{4cm}}}
 \caption{ER-Diagramm}
 \label{fig:er}
 \end{figure}
 
-\subsection{Entitäten}
+\newpage
 
-\textbf{Book (Buch)}
+\subsection{Entität: Book}
+
 \begin{table}[H]
 \centering
-\begin{tabularx}{\textwidth}{l l X}
+\caption{Entität: Book (Buch)}
+\begin{tabularx}{\textwidth}{l l l X}
 \toprule
-\textbf{Attribut} & \textbf{Typ} & \textbf{Beschreibung} \\
+\textbf{Attribut} & \textbf{Typ} & \textbf{Constraint} & \textbf{Beschreibung} \\
 \midrule
-id & BIGINT & Primärschlüssel (auto-generiert) \\
-title & VARCHAR(255) & Buchtitel (Pflichtfeld) \\
-author & VARCHAR(255) & Autor (Pflichtfeld) \\
-isbn & VARCHAR(255) & ISBN (unique) \\
-status & VARCHAR(50) & AVAILABLE oder BORROWED \\
+id & BIGINT & PK, Auto & Primärschlüssel \\
+title & VARCHAR(255) & NOT NULL & Buchtitel \\
+author & VARCHAR(255) & NOT NULL & Autor des Buches \\
+isbn & VARCHAR(50) & UNIQUE & ISBN-Nummer \\
+status & VARCHAR(50) & -- & AVAILABLE oder BORROWED \\
 \bottomrule
 \end{tabularx}
-\caption{Entität: Book}
 \end{table}
 
-\textbf{Loan (Ausleihe)}
+\subsection{Entität: Loan}
+
 \begin{table}[H]
 \centering
-\begin{tabularx}{\textwidth}{l l X}
+\caption{Entität: Loan (Ausleihe)}
+\begin{tabularx}{\textwidth}{l l l X}
 \toprule
-\textbf{Attribut} & \textbf{Typ} & \textbf{Beschreibung} \\
+\textbf{Attribut} & \textbf{Typ} & \textbf{Constraint} & \textbf{Beschreibung} \\
 \midrule
-id & BIGINT & Primärschlüssel \\
-book\_id & BIGINT & Fremdschlüssel zu Book \\
-userId & VARCHAR(255) & Keycloak User-ID \\
-userName & VARCHAR(255) & Benutzername \\
-loanDate & DATE & Ausleihdatum \\
-dueDate & DATE & Fälligkeitsdatum \\
-returnDate & DATE & Rückgabedatum (nullable) \\
-status & VARCHAR(50) & ACTIVE oder RETURNED \\
+id & BIGINT & PK, Auto & Primärschlüssel \\
+book\_id & BIGINT & FK, NOT NULL & Fremdschlüssel zu Book \\
+userId & VARCHAR(255) & NOT NULL & Keycloak User-ID \\
+userName & VARCHAR(255) & NOT NULL & Benutzername \\
+loanDate & DATE & NOT NULL & Ausleihdatum \\
+dueDate & DATE & NOT NULL & Fälligkeitsdatum (4 Wochen) \\
+returnDate & DATE & -- & Rückgabedatum (nullable) \\
+status & VARCHAR(50) & -- & ACTIVE oder RETURNED \\
 \bottomrule
 \end{tabularx}
-\caption{Entität: Loan}
 \end{table}
+
+\newpage
 
 % ----------------------------------------------------------------------------
 \section{Architektur}
 
 \subsection{Systemübersicht}
+
 \begin{figure}[H]
 \centering
-\fbox{\parbox{0.8\textwidth}{\centering\vspace{3cm}\textit{[Screenshot: Architektur-Diagramm einfügen]}\vspace{3cm}}}
+\fbox{\parbox{0.85\textwidth}{\centering\vspace{4cm}
+\textbf{PLATZHALTER}\\[0.5cm]
+Architektur-Diagramm hier einfügen.\\
+Datei: \texttt{screenshots/architecture.png}
+\vspace{4cm}}}
 \caption{Systemarchitektur}
 \label{fig:architektur}
 \end{figure}
@@ -419,75 +621,94 @@ status & VARCHAR(50) & ACTIVE oder RETURNED \\
 \subsection{Schichtenmodell}
 
 \begin{verbatim}
-┌─────────────────────────────────────────────────────────┐
-│                      Frontend                           │
-│              React + TypeScript + Shadcn UI             │
-├─────────────────────────────────────────────────────────┤
-│                      Backend                            │
-│                   Spring Boot REST API                  │
-│  ┌─────────────┬─────────────┬─────────────────────┐   │
-│  │ Controller  │   Service   │     Repository      │   │
-│  └─────────────┴─────────────┴─────────────────────┘   │
-├─────────────────────────────────────────────────────────┤
-│                     Datenbank                           │
-│                       MariaDB                           │
-├─────────────────────────────────────────────────────────┤
-│                  Authentifizierung                      │
-│                      Keycloak                           │
-└─────────────────────────────────────────────────────────┘
++-------------------------------------------------------------+
+|                        Frontend                             |
+|               React + TypeScript + Shadcn UI                |
+|                    (Port 5173)                              |
++-------------------------------------------------------------+
+                            |
+                            | HTTP/REST + JWT
+                            v
++-------------------------------------------------------------+
+|                        Backend                              |
+|                   Spring Boot REST API                      |
+|                     (Port 8080)                             |
+|  +-------------+  +-------------+  +-------------------+    |
+|  | Controller  |  |   Service   |  |    Repository     |    |
+|  +-------------+  +-------------+  +-------------------+    |
++-------------------------------------------------------------+
+                            |
+                            | JPA/Hibernate
+                            v
++-------------------------------------------------------------+
+|                       Datenbank                             |
+|                        MariaDB                              |
+|                      (Port 3306)                            |
++-------------------------------------------------------------+
+
++-------------------------------------------------------------+
+|                   Authentifizierung                         |
+|                       Keycloak                              |
+|                      (Port 8180)                            |
++-------------------------------------------------------------+
 \end{verbatim}
+
+\newpage
 
 \subsection{Projektstruktur}
 
-\textbf{Backend:}
+\textbf{Backend (/backend):}
 \begin{verbatim}
-backend/
-└── src/main/java/ch/library/backend/
-    ├── config/         SecurityConfig.java
-    ├── controller/     BookController, LoanController
-    ├── entity/         Book, Loan
-    ├── repository/     BookRepository, LoanRepository
-    └── service/        BookService, LoanService
+src/main/java/ch/library/backend/
+├── BackendApplication.java      # Spring Boot Einstiegspunkt
+├── config/
+│   └── SecurityConfig.java      # OAuth2/JWT Konfiguration
+├── controller/
+│   ├── BookController.java      # REST Endpoints für Bücher
+│   └── LoanController.java      # REST Endpoints für Ausleihen
+├── dto/
+│   └── BookRequest.java         # Request DTO mit Validierung
+├── entity/
+│   ├── Book.java                # JPA Entity Buch
+│   └── Loan.java                # JPA Entity Ausleihe
+├── exception/
+│   ├── GlobalExceptionHandler.java
+│   ├── ResourceNotFoundException.java
+│   └── BadRequestException.java
+├── repository/
+│   ├── BookRepository.java
+│   └── LoanRepository.java
+└── service/
+    ├── BookService.java
+    └── LoanService.java
 \end{verbatim}
 
-\textbf{Frontend:}
+\textbf{Frontend (/frontend):}
 \begin{verbatim}
-frontend/
-└── src/
-    ├── components/ui/  Shadcn UI Komponenten
-    ├── pages/          BooksPage, MyLoansPage, StaffPage
-    ├── services/       api.ts, keycloak.ts
-    └── types/          TypeScript Interfaces
+src/
+├── App.tsx                      # Hauptkomponente mit Routing
+├── main.tsx                     # Einstiegspunkt
+├── index.css                    # Tailwind CSS
+├── components/
+│   └── ui/                      # Shadcn UI Komponenten
+├── pages/
+│   ├── BooksPage.tsx            # Bücherübersicht
+│   ├── MyLoansPage.tsx          # Meine Ausleihen (Kunde)
+│   └── StaffPage.tsx            # Mitarbeiter-Bereich
+├── services/
+│   ├── api.ts                   # Axios API Client
+│   └── keycloak.ts              # Keycloak Konfiguration
+└── types/
+    └── index.ts                 # TypeScript Interfaces
 \end{verbatim}
+
+\newpage
 
 % ----------------------------------------------------------------------------
-\section{Implementierung}
+\section{REST API}
 
-\subsection{Backend}
+\subsection{Endpoints}
 
-\subsubsection{Entity: Book}
-\begin{lstlisting}[language=Java, caption=Book.java]
-@Entity
-@Table(name = "books")
-public class Book {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    
-    @Column(nullable = false)
-    private String title;
-    
-    @Column(nullable = false)
-    private String author;
-    
-    @Column(unique = true)
-    private String isbn;
-    
-    private String status = "AVAILABLE";
-}
-\end{lstlisting}
-
-\subsubsection{REST Endpoints}
 \begin{table}[H]
 \centering
 \caption{REST API Endpoints}
@@ -496,25 +717,111 @@ public class Book {
 \textbf{Methode} & \textbf{Pfad} & \textbf{Beschreibung} & \textbf{Rolle} \\
 \midrule
 GET & /api/books & Alle Bücher abrufen & Alle \\
-GET & /api/books/\{id\} & Einzelnes Buch & Alle \\
-POST & /api/books & Buch erstellen & STAFF \\
+GET & /api/books/\{id\} & Einzelnes Buch abrufen & Alle \\
+GET & /api/books/available & Verfügbare Bücher & Alle \\
+POST & /api/books & Neues Buch erstellen & STAFF \\
 PUT & /api/books/\{id\} & Buch aktualisieren & STAFF \\
 DELETE & /api/books/\{id\} & Buch löschen & STAFF \\
+\midrule
+GET & /api/loans & Alle Ausleihen & STAFF \\
 GET & /api/loans/my & Eigene Ausleihen & Auth \\
-POST & /api/loans & Ausleihe erstellen & STAFF \\
+POST & /api/loans & Neue Ausleihe erstellen & STAFF \\
 PUT & /api/loans/\{id\}/return & Buch zurückgeben & STAFF \\
 \bottomrule
 \end{tabularx}
 \end{table}
 
-\subsection{Frontend}
+\newpage
 
-\subsubsection{Komponenten}
-\begin{itemize}
-    \item \textbf{BooksPage:} Zeigt alle Bücher in einer Tabelle
-    \item \textbf{MyLoansPage:} Zeigt aktive Ausleihen des eingeloggten Kunden
-    \item \textbf{StaffPage:} Mitarbeiter-Bereich für Buchverwaltung und Ausleihen
-\end{itemize}
+% ----------------------------------------------------------------------------
+\section{Implementierung}
+
+\subsection{Backend: Entity Book}
+
+\begin{lstlisting}[language=java, caption=Book.java]
+@Entity
+@Table(name = "books")
+public class Book {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false)
+    private String title;
+
+    @Column(nullable = false)
+    private String author;
+
+    @Column(unique = true)
+    private String isbn;
+
+    private String status = "AVAILABLE";
+
+    // Getter und Setter
+}
+\end{lstlisting}
+
+\subsection{Backend: Security Config}
+
+\begin{lstlisting}[language=java, caption=SecurityConfig.java (Auszug)]
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+            .cors(cors -> {})
+            .csrf(csrf -> csrf.disable())
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers(HttpMethod.GET, "/api/books/**").permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/books/**").hasRole("STAFF")
+                .requestMatchers("/api/loans/my").authenticated()
+                .requestMatchers("/api/loans/**").hasRole("STAFF")
+                .anyRequest().authenticated()
+            )
+            .oauth2ResourceServer(oauth2 -> oauth2
+                .jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter()))
+            );
+        return http.build();
+    }
+}
+\end{lstlisting}
+
+\newpage
+
+\subsection{Frontend: BooksPage}
+
+\begin{lstlisting}[language=tsx, caption=BooksPage.tsx (Auszug)]
+export default function BooksPage() {
+  const [books, setBooks] = useState<Book[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    bookApi.getAll()
+      .then(setBooks)
+      .finally(() => setLoading(false));
+  }, []);
+
+  if (loading) return <p>Laden...</p>;
+
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Buecher</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <Table>
+          {/* Tabelle mit Buechern */}
+        </Table>
+      </CardContent>
+    </Card>
+  );
+}
+\end{lstlisting}
+
+\newpage
 
 % ----------------------------------------------------------------------------
 \section{Sicherheit}
@@ -523,8 +830,8 @@ PUT & /api/loans/\{id\}/return & Buch zurückgeben & STAFF \\
 Die Authentifizierung erfolgt über Keycloak mit dem OpenID Connect (OIDC) Protokoll:
 
 \begin{enumerate}
-    \item Benutzer klickt "Anmelden"
-    \item Weiterleitung zu Keycloak Login-Seite
+    \item Benutzer klickt auf ``Anmelden''
+    \item Weiterleitung zur Keycloak Login-Seite
     \item Nach erfolgreichem Login erhält das Frontend ein JWT-Token
     \item Token wird bei jedem API-Request im Authorization-Header mitgeschickt
     \item Backend validiert das Token gegen Keycloak
@@ -532,42 +839,87 @@ Die Authentifizierung erfolgt über Keycloak mit dem OpenID Connect (OIDC) Proto
 
 \subsection{Autorisierung}
 Rollenbasierte Zugriffskontrolle (RBAC):
-
 \begin{itemize}
     \item \textbf{STAFF:} Vollzugriff auf alle Funktionen
     \item \textbf{CUSTOMER:} Nur lesender Zugriff auf eigene Daten
 \end{itemize}
 
-\subsection{Sicherheitsmassnahmen}
+\subsection{Implementierte Sicherheitsmassnahmen}
 \begin{itemize}
     \item JWT-Token Validierung im Backend
+    \item Keycloak Realm-Rollen werden korrekt gemappt
     \item CORS-Konfiguration für Frontend-Origin
     \item CSRF-Schutz (stateless durch JWT)
-    \item SQL-Injection-Schutz durch JPA/Hibernate
-    \item Eingabevalidierung
+    \item SQL-Injection-Schutz durch JPA/Hibernate (Prepared Statements)
+    \item Eingabevalidierung mit Jakarta Validation (@NotBlank, @Size)
 \end{itemize}
+
+\newpage
+
+% ----------------------------------------------------------------------------
+\section{Fehlerbehandlung und Logging}
+
+\subsection{Fehlerbehandlung}
+Die Applikation verwendet einen globalen Exception Handler:
+
+\begin{lstlisting}[language=java, caption=GlobalExceptionHandler.java (Auszug)]
+@RestControllerAdvice
+public class GlobalExceptionHandler {
+
+    private static final Logger logger = 
+        LoggerFactory.getLogger(GlobalExceptionHandler.class);
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<Map<String, Object>> handleNotFound(
+            ResourceNotFoundException ex) {
+        logger.warn("Resource nicht gefunden: {}", ex.getMessage());
+        return buildResponse(HttpStatus.NOT_FOUND, ex.getMessage());
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<Map<String, Object>> handleValidation(
+            MethodArgumentNotValidException ex) {
+        // Validierungsfehler verarbeiten
+    }
+}
+\end{lstlisting}
+
+\subsection{Logging}
+Logging erfolgt mit SLF4J/Logback:
+\begin{itemize}
+    \item INFO: Normale Operationen (Buch erstellt, Ausleihe erstellt)
+    \item WARN: Erwartete Fehler (Resource nicht gefunden)
+    \item ERROR: Unerwartete Fehler (Exceptions)
+\end{itemize}
+
+\newpage
 
 % ----------------------------------------------------------------------------
 \section{Testing}
 
 \subsection{Testfälle}
+
 \begin{table}[H]
 \centering
-\caption{Testfälle}
+\caption{Durchgeführte Testfälle}
 \begin{tabularx}{\textwidth}{c X X c}
 \toprule
-\textbf{ID} & \textbf{Beschreibung} & \textbf{Erwartetes Ergebnis} & \textbf{Status} \\
+\textbf{ID} & \textbf{Beschreibung} & \textbf{Erwartetes Ergebnis} & \textbf{OK} \\
 \midrule
 T-01 & Login als Mitarbeiter & Zugriff auf Staff-Bereich & \cmark \\
-T-02 & Login als Kunde & Nur "Meine Ausleihen" sichtbar & \cmark \\
-T-03 & Buch erstellen & Buch in Liste sichtbar & \cmark \\
-T-04 & Buch ausleihen & Status wechselt zu "Ausgeliehen" & \cmark \\
-T-05 & Buch zurückgeben & Status wechselt zu "Verfügbar" & \cmark \\
-T-06 & Kunde sieht eigene Ausleihen & Liste wird angezeigt & \cmark \\
-T-07 & Kunde kann keine Bücher erstellen & Kein Zugriff (403) & \cmark \\
+T-02 & Login als Kunde & Nur ``Meine Ausleihen'' sichtbar & \cmark \\
+T-03 & Buch erstellen (Mitarbeiter) & Buch erscheint in Liste & \cmark \\
+T-04 & Buch erstellen ohne Titel & Validierungsfehler & \cmark \\
+T-05 & Buch ausleihen & Status wechselt zu ``Ausgeliehen'' & \cmark \\
+T-06 & Buch zurückgeben & Status wechselt zu ``Verfügbar'' & \cmark \\
+T-07 & Kunde sieht eigene Ausleihen & Liste wird angezeigt & \cmark \\
+T-08 & Kunde versucht Buch zu erstellen & Kein Zugriff (403) & \cmark \\
+T-09 & Nicht angemeldet: Staff-Bereich & Redirect zu Login & \cmark \\
 \bottomrule
 \end{tabularx}
 \end{table}
+
+\newpage
 
 % ----------------------------------------------------------------------------
 \section{Screenshots}
@@ -575,62 +927,103 @@ T-07 & Kunde kann keine Bücher erstellen & Kein Zugriff (403) & \cmark \\
 \subsection{Bücher-Übersicht}
 \begin{figure}[H]
 \centering
-\fbox{\parbox{0.8\textwidth}{\centering\vspace{4cm}\textit{[Screenshot: Bücher-Seite einfügen]}\vspace{4cm}}}
+\fbox{\parbox{0.85\textwidth}{\centering\vspace{5cm}
+\textbf{PLATZHALTER}\\[0.5cm]
+Screenshot der Bücher-Seite hier einfügen.\\
+Datei: \texttt{screenshots/books-page.png}
+\vspace{5cm}}}
 \caption{Bücher-Übersicht}
 \end{figure}
+
+\newpage
 
 \subsection{Mitarbeiter-Bereich}
 \begin{figure}[H]
 \centering
-\fbox{\parbox{0.8\textwidth}{\centering\vspace{4cm}\textit{[Screenshot: Mitarbeiter-Seite einfügen]}\vspace{4cm}}}
+\fbox{\parbox{0.85\textwidth}{\centering\vspace{5cm}
+\textbf{PLATZHALTER}\\[0.5cm]
+Screenshot des Mitarbeiter-Bereichs hier einfügen.\\
+Datei: \texttt{screenshots/staff-page.png}
+\vspace{5cm}}}
 \caption{Mitarbeiter-Bereich}
 \end{figure}
+
+\newpage
 
 \subsection{Meine Ausleihen (Kundenansicht)}
 \begin{figure}[H]
 \centering
-\fbox{\parbox{0.8\textwidth}{\centering\vspace{4cm}\textit{[Screenshot: Meine Ausleihen einfügen]}\vspace{4cm}}}
+\fbox{\parbox{0.85\textwidth}{\centering\vspace{5cm}
+\textbf{PLATZHALTER}\\[0.5cm]
+Screenshot der Kundenansicht hier einfügen.\\
+Datei: \texttt{screenshots/my-loans-page.png}
+\vspace{5cm}}}
 \caption{Meine Ausleihen}
 \end{figure}
+
+\newpage
+
+\subsection{Keycloak Login}
+\begin{figure}[H]
+\centering
+\fbox{\parbox{0.85\textwidth}{\centering\vspace{5cm}
+\textbf{PLATZHALTER}\\[0.5cm]
+Screenshot der Keycloak Login-Seite hier einfügen.\\
+Datei: \texttt{screenshots/keycloak-login.png}
+\vspace{5cm}}}
+\caption{Keycloak Login}
+\end{figure}
+
+\newpage
 
 % ----------------------------------------------------------------------------
 \section{Reflexion}
 
 \subsection{Zielerreichung}
-Alle funktionalen Anforderungen wurden erfüllt:
+Alle funktionalen Anforderungen wurden erfolgreich umgesetzt:
 \begin{itemize}
-    \item Bücher können erfasst werden
-    \item Ausleihen können erstellt und zurückgegeben werden
-    \item Rollenbasierte Navigation funktioniert
-    \item Kunden sehen nur ihre eigenen Ausleihen
+    \item[\cmark] Bücher können erfasst werden
+    \item[\cmark] Ausleihen können erstellt und zurückgegeben werden
+    \item[\cmark] Rollenbasierte Navigation funktioniert korrekt
+    \item[\cmark] Kunden sehen nur ihre eigenen Ausleihen
+    \item[\cmark] Authentifizierung über Keycloak funktioniert
 \end{itemize}
 
-\subsection{Probleme und Lösungen}
+\subsection{Aufgetretene Probleme und Lösungen}
+
 \begin{table}[H]
 \centering
+\caption{Aufgetretene Probleme}
 \begin{tabularx}{\textwidth}{X X}
 \toprule
 \textbf{Problem} & \textbf{Lösung} \\
 \midrule
-Keycloak Rollen wurden nicht erkannt & KeycloakRoleConverter im Backend implementiert \\
-Tailwind CSS Konflikt mit Shadcn & CSS-Variablen korrekt konfiguriert \\
-"Meine Ausleihen" zeigte keine Daten & Suche nach userName statt userId \\
+Keycloak Rollen wurden im Backend nicht erkannt & KeycloakRoleConverter implementiert, der realm\_access.roles ausliest \\
+\midrule
+Tailwind CSS Konflikt mit Shadcn UI & CSS-Variablen korrekt konfiguriert, @layer Direktiven entfernt \\
+\midrule
+``Meine Ausleihen'' zeigte keine Daten & Suche nach userName statt userId, da Keycloak-ID nicht direkt verfügbar \\
+\midrule
+Vite Import-Alias funktionierte nicht & tsconfig.json und vite.config.ts korrekt konfiguriert \\
 \bottomrule
 \end{tabularx}
-\caption{Aufgetretene Probleme}
 \end{table}
 
-\subsection{Gelerntes}
+\subsection{Neue Erkenntnisse}
 \begin{itemize}
     \item Full-Stack Entwicklung mit React und Spring Boot
-    \item Integration von Keycloak für Authentifizierung
+    \item Integration von Keycloak für Authentifizierung und Autorisierung
     \item Docker Compose für lokale Entwicklungsumgebung
-    \item Rollenbasierte Zugriffskontrolle
+    \item Shadcn UI als moderne Komponentenbibliothek
 \end{itemize}
 
 \subsection{Fazit}
-Die Probe-IPA wurde erfolgreich umgesetzt. Das System erfüllt alle geforderten Funktionen und bietet eine solide Grundlage für eine echte Bibliotheksverwaltung.
+Die Probe-IPA wurde erfolgreich abgeschlossen. Das entwickelte System erfüllt alle geforderten Funktionen und bietet eine solide Grundlage für eine Bibliotheksverwaltung. Die Architektur ist sauber getrennt und erweiterbar.
 
+\newpage
+
+% ============================================================================
+% ANHANG
 % ============================================================================
 \appendix
 \chapter{Anhang}
@@ -640,7 +1033,7 @@ Die Probe-IPA wurde erfolgreich umgesetzt. Das System erfüllt alle geforderten 
 \subsection{Voraussetzungen}
 \begin{itemize}
     \item Docker Desktop
-    \item Java 17
+    \item Java 17 (JDK)
     \item Node.js 18+
     \item Git
 \end{itemize}
@@ -648,12 +1041,15 @@ Die Probe-IPA wurde erfolgreich umgesetzt. Das System erfüllt alle geforderten 
 \subsection{Setup}
 \begin{lstlisting}[language=bash, caption=Installation]
 # Repository klonen
-git clone https://github.com/[username]/Probe-IPA-Buecherrei.git
+git clone https://github.com/hereqi/Probe-IPA-Buecherrei.git
 cd Probe-IPA-Buecherrei
 
-# Docker Container starten
+# Docker Container starten (MariaDB + Keycloak)
 cd docker
 docker-compose up -d
+
+# Warten bis Keycloak gestartet ist (~30 Sekunden)
+# Keycloak UI: http://localhost:8180 (admin/admin)
 
 # Backend starten
 cd ../backend
@@ -665,19 +1061,35 @@ npm install
 npm run dev
 \end{lstlisting}
 
+\subsection{URLs}
+\begin{table}[H]
+\centering
+\begin{tabular}{l l}
+\toprule
+\textbf{Service} & \textbf{URL} \\
+\midrule
+Frontend & \url{http://localhost:5173} \\
+Backend API & \url{http://localhost:8080/api} \\
+Keycloak Admin & \url{http://localhost:8180} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 \subsection{Test-Accounts}
 \begin{table}[H]
 \centering
-\begin{tabular}{l l l}
+\begin{tabular}{l l l l}
 \toprule
-\textbf{Rolle} & \textbf{Benutzername} & \textbf{Passwort} \\
+\textbf{Rolle} & \textbf{Benutzername} & \textbf{Passwort} & \textbf{Berechtigung} \\
 \midrule
-Mitarbeiter & mitarbeiter & test123 \\
-Kunde & kunde & test123 \\
+Mitarbeiter & mitarbeiter & test123 & Vollzugriff \\
+Kunde & kunde & test123 & Nur eigene Ausleihen \\
 \bottomrule
 \end{tabular}
 \caption{Keycloak Test-Accounts}
 \end{table}
+
+\newpage
 
 \section{Quellenverzeichnis}
 \begin{itemize}
@@ -686,6 +1098,27 @@ Kunde & kunde & test123 \\
     \item Keycloak Dokumentation: \url{https://www.keycloak.org/documentation}
     \item Shadcn UI: \url{https://ui.shadcn.com}
     \item Tailwind CSS: \url{https://tailwindcss.com}
+    \item MariaDB: \url{https://mariadb.org}
+    \item Docker: \url{https://docs.docker.com}
 \end{itemize}
+
+\section{Glossar}
+\begin{table}[H]
+\begin{tabularx}{\textwidth}{l X}
+\toprule
+\textbf{Begriff} & \textbf{Erklärung} \\
+\midrule
+API & Application Programming Interface \\
+CORS & Cross-Origin Resource Sharing \\
+DTO & Data Transfer Object \\
+JPA & Java Persistence API \\
+JWT & JSON Web Token \\
+OIDC & OpenID Connect \\
+ORM & Object-Relational Mapping \\
+REST & Representational State Transfer \\
+SPA & Single Page Application \\
+\bottomrule
+\end{tabularx}
+\end{table}
 
 \end{document}
