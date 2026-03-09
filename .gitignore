@@ -1,0 +1,30 @@
+# === IDE ===
+.idea/
+*.iml
+.vscode/
+
+# === Backend (Java/Maven) ===
+backend/target/
+*.class
+*.jar
+*.log
+
+# === Frontend (Node) ===
+frontend/node_modules/
+frontend/dist/
+
+# === Docker ===
+docker/data/
+
+# === OS ===
+.DS_Store
+Thumbs.db
+
+# === LaTeX ===
+docs/*.aux
+docs/*.log
+docs/*.out
+docs/*.toc
+docs/*.synctex.gz
+docs/*.fdb_latexmk
+docs/*.fls
