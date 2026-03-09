@@ -1,6 +1,15 @@
 import { useEffect, useState } from 'react';
 import { bookApi } from '../services/api';
 import type { Book } from '../types';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '../components/ui/table';
+import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 
 export default function BooksPage() {
   const [books, setBooks] = useState<Book[]>([]);
@@ -15,33 +24,38 @@ export default function BooksPage() {
   if (loading) return <p>Laden...</p>;
 
   return (
-    <div>
-      <h1 className="text-2xl font-bold mb-4">Bücher</h1>
-      {books.length === 0 ? (
-        <p>Keine Bücher vorhanden.</p>
-      ) : (
-        <table className="w-full border">
-          <thead>
-            <tr className="bg-gray-100">
-              <th className="border p-2 text-left">Titel</th>
-              <th className="border p-2 text-left">Autor</th>
-              <th className="border p-2 text-left">ISBN</th>
-              <th className="border p-2 text-left">Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {books.map(book => (
-              <tr key={book.id}>
-                <td className="border p-2">{book.title}</td>
-                <td className="border p-2">{book.author}</td>
-                <td className="border p-2">{book.isbn}</td>
-                <td className="border p-2">
-  {book.status === 'AVAILABLE' ? 'Verfügbar' : 'Ausgeliehen'}
-</td>              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
-    </div>
+    <Card>
+      <CardHeader>
+        <CardTitle>Bücher</CardTitle>
+      </CardHeader>
+      <CardContent>
+        {books.length === 0 ? (
+          <p>Keine Bücher vorhanden.</p>
+        ) : (
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Titel</TableHead>
+                <TableHead>Autor</TableHead>
+                <TableHead>ISBN</TableHead>
+                <TableHead>Status</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {books.map(book => (
+                <TableRow key={book.id}>
+                  <TableCell>{book.title}</TableCell>
+                  <TableCell>{book.author}</TableCell>
+                  <TableCell>{book.isbn}</TableCell>
+                  <TableCell>
+                    {book.status === 'AVAILABLE' ? 'Verfügbar' : 'Ausgeliehen'}
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        )}
+      </CardContent>
+    </Card>
   );
 }
